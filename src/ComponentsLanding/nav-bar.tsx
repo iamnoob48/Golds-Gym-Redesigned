@@ -1,9 +1,33 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { List, X, CaretDown } from "@phosphor-icons/react";
 
+/* ─── Type Definitions ─── */
+interface NavChild {
+  name: string;
+  link: string;
+}
+
+interface NavItem {
+  name: string;
+  link: string;
+  children?: NavChild[];
+}
+
+interface DropdownProps {
+  items: NavChild[];
+  isOpen: boolean;
+}
+
+interface NavLinkProps {
+  item: NavItem;
+  idx: number;
+  hovered: number | null;
+  setHovered: React.Dispatch<React.SetStateAction<number | null>>;
+}
+
 /* ─── Nav Data ─── */
-const NAV_ITEMS = [
+const NAV_ITEMS: NavItem[] = [
   {
     name: "Get Started",
     link: "#",
@@ -47,7 +71,7 @@ const NAV_ITEMS = [
   },
 ];
 
-const MORE_ITEMS = [
+const MORE_ITEMS: NavItem[] = [
   { name: "Associations & Advertising", link: "#advertising" },
   {
     name: "Convention",
@@ -61,7 +85,7 @@ const MORE_ITEMS = [
 ];
 
 /* ─── Dropdown Component ─── */
-function Dropdown({ items, isOpen }) {
+function Dropdown({ items, isOpen }: DropdownProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -90,13 +114,14 @@ function Dropdown({ items, isOpen }) {
 }
 
 /* ─── NavLink (with optional dropdown) ─── */
-function NavLink({ item, idx, hovered, setHovered }) {
+function NavLink({ item, idx, hovered, setHovered }: NavLinkProps) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const timeoutRef = useRef(null);
+  // Type the ref so it accepts the ID returned by setTimeout, or null
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const hasChildren = item.children && item.children.length > 0;
 
   const handleMouseEnter = () => {
-    clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setHovered(idx);
     if (hasChildren) setDropdownOpen(true);
   };
@@ -130,9 +155,8 @@ function NavLink({ item, idx, hovered, setHovered }) {
           <CaretDown
             size={12}
             weight="bold"
-            className={`relative z-10 transition-transform duration-200 ${
-              dropdownOpen ? "rotate-180" : ""
-            }`}
+            className={`relative z-10 transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""
+              }`}
           />
         )}
       </a>
@@ -143,11 +167,12 @@ function NavLink({ item, idx, hovered, setHovered }) {
 
 /* ─── Main Navbar ─── */
 export default function NavBar() {
-  const [hovered, setHovered] = useState(null);
+  // Add <number | null> so TS knows these state variables can hold numbers
+  const [hovered, setHovered] = useState<number | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
-  const moreTimeoutRef = useRef(null);
+  const moreTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -161,17 +186,16 @@ export default function NavBar() {
   }, [mobileOpen]);
 
   /* ─── Mobile Accordion State ─── */
-  const [mobileExpanded, setMobileExpanded] = useState(null);
+  const [mobileExpanded, setMobileExpanded] = useState<number | null>(null);
   const allMobileItems = [...NAV_ITEMS, ...MORE_ITEMS];
 
   return (
     <nav
       id="main-navbar"
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ${
-        scrolled
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ${scrolled
           ? "bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#D4AF37]/10 shadow-[0_4px_30px_rgba(212,175,55,0.06)]"
           : "bg-transparent"
-      }`}
+        }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
         {/* ─── Logo ─── */}
@@ -209,7 +233,7 @@ export default function NavBar() {
           <div
             className="relative"
             onMouseEnter={() => {
-              clearTimeout(moreTimeoutRef.current);
+              if (moreTimeoutRef.current) clearTimeout(moreTimeoutRef.current);
               setHovered(NAV_ITEMS.length);
               setMoreOpen(true);
             }}
@@ -232,9 +256,8 @@ export default function NavBar() {
               <CaretDown
                 size={12}
                 weight="bold"
-                className={`relative z-10 transition-transform duration-200 ${
-                  moreOpen ? "rotate-180" : ""
-                }`}
+                className={`relative z-10 transition-transform duration-200 ${moreOpen ? "rotate-180" : ""
+                  }`}
               />
             </button>
 
@@ -366,9 +389,8 @@ export default function NavBar() {
                           <CaretDown
                             size={14}
                             weight="bold"
-                            className={`transition-transform duration-200 ${
-                              isExpanded ? "rotate-180" : ""
-                            }`}
+                            className={`transition-transform duration-200 ${isExpanded ? "rotate-180" : ""
+                              }`}
                           />
                         )}
                       </a>
