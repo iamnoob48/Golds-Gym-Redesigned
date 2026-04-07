@@ -160,7 +160,7 @@ function NavLink({ item, idx, hovered, setHovered }: NavLinkProps) {
           />
         )}
       </a>
-      {hasChildren && <Dropdown items={item.children} isOpen={dropdownOpen} />}
+      {hasChildren && <Dropdown items={item.children || []} isOpen={dropdownOpen} />}
     </div>
   );
 }
@@ -193,8 +193,8 @@ export default function NavBar() {
     <nav
       id="main-navbar"
       className={`fixed top-0 left-0 z-50 w-full transition-all duration-500 ${scrolled
-          ? "bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#D4AF37]/10 shadow-[0_4px_30px_rgba(212,175,55,0.06)]"
-          : "bg-transparent"
+        ? "bg-[#0a0a0a]/90 backdrop-blur-xl border-b border-[#D4AF37]/10 shadow-[0_4px_30px_rgba(212,175,55,0.06)]"
+        : "bg-transparent"
         }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-6">
@@ -405,7 +405,7 @@ export default function NavBar() {
                           transition={{ duration: 0.25 }}
                           className="overflow-hidden pl-4"
                         >
-                          {item.children.map((child) => (
+                          {item.children?.map((child) => (
                             <a
                               key={child.name}
                               href={child.link}

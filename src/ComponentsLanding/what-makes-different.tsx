@@ -91,45 +91,6 @@ const ITEMS = [
   { label: "Domestic & International Travel Pass", icon: TravelIcon },
 ];
 
-/* ─── Floating Equipment Accents ─── */
-function DumbbellAccent() {
-  return (
-    <div className="absolute -left-6 top-1/2 -translate-y-1/2 hidden xl:block pointer-events-none z-20">
-      <svg width="100" height="40" viewBox="0 0 100 40" fill="none" className="drop-shadow-[0_0_12px_rgba(59,130,246,0.15)]">
-        <rect x="0" y="14" width="10" height="12" rx="2" fill="#1a1a1a" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.3" />
-        <rect x="12" y="12" width="8" height="16" rx="2" fill="#111" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.3" />
-        <rect x="22" y="17" width="56" height="6" rx="3" fill="#0d0d0d" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.25" />
-        <rect x="80" y="12" width="8" height="16" rx="2" fill="#111" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.3" />
-        <rect x="90" y="14" width="10" height="12" rx="2" fill="#1a1a1a" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.3" />
-      </svg>
-    </div>
-  );
-}
-
-function WeightPlateAccent() {
-  return (
-    <div className="absolute -right-4 top-1/2 -translate-y-1/2 hidden xl:block pointer-events-none z-20">
-      <svg width="60" height="60" viewBox="0 0 60 60" fill="none" className="drop-shadow-[0_0_12px_rgba(59,130,246,0.15)]">
-        <circle cx="30" cy="30" r="28" fill="#0d0d0d" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.3" />
-        <circle cx="30" cy="30" r="22" fill="#111" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.2" />
-        <circle cx="30" cy="30" r="8" fill="#0a0a0a" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.4" />
-        <circle cx="30" cy="30" r="4" fill="#1a1a1a" />
-      </svg>
-    </div>
-  );
-}
-
-function KettlebellAccent() {
-  return (
-    <div className="absolute right-16 -bottom-8 hidden xl:block pointer-events-none z-20">
-      <svg width="50" height="65" viewBox="0 0 50 65" fill="none" className="drop-shadow-[0_0_12px_rgba(59,130,246,0.15)]">
-        <path d="M15 20 Q15 8 25 8 Q35 8 35 20" fill="none" stroke="#3B82F6" strokeWidth="0.7" strokeOpacity="0.3" />
-        <ellipse cx="25" cy="40" rx="20" ry="22" fill="#0d0d0d" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.3" />
-        <ellipse cx="25" cy="40" rx="12" ry="14" fill="#111" stroke="#3B82F6" strokeWidth="0.5" strokeOpacity="0.2" />
-      </svg>
-    </div>
-  );
-}
 
 /* ─── Marquee Card ─── */
 function MarqueeCard({ item }: { item: (typeof ITEMS)[0] }) {
