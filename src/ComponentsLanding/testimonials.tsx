@@ -1,4 +1,4 @@
-
+import { Star } from "lucide-react";
 
 // Mock data to create the staggered masonry effect
 const testimonials = [
@@ -66,8 +66,10 @@ export default function TestimonialWall() {
                                     </span>
                                 </div>
                                 <div>
-                                    <div className="text-yellow-400 text-sm tracking-widest mb-1">
-                                        ⭐⭐⭐⭐⭐
+                                    <div className="flex gap-0.5 mb-1">
+                                        {Array.from({ length: 5 }).map((_, i) => (
+                                            <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                        ))}
                                     </div>
                                     <h4 className="text-yellow-500 font-bold tracking-wide">
                                         {review.name}
