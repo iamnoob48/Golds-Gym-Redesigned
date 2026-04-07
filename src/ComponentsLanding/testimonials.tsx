@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 // Mock data to create the staggered masonry effect
 const testimonials = [
